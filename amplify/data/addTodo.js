@@ -3,7 +3,7 @@ import { util } from "@aws-appsync/utils";
 
 export function request(ctx) {
   console.log(`adding object with args ${JSON.stringify(ctx.arguments)}`);
-  const secret = ctx.env.mongodbsecret;
+  // const secret = ctx.env.mongodbsecret;
 
   return {
     method: "POST",
@@ -13,7 +13,7 @@ export function request(ctx) {
         "Content-Type": "application/json",
         "Access-Control-Request-Headers": "*",
         "Accept": "application/json",
-        "api-key": "xxxxx"
+        "api-key": "xxxx"
         // "api-key": secret
         // "api-key": `"${secret}"`
       },
