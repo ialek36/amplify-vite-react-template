@@ -7,13 +7,67 @@ specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
-    .model({
+  Todo2: a.customType({
+      _id: a.id(),
       content: a.string(),
-    })
-    .authorization((allow) => [allow.publicApiKey()]),
+    }),
+
+    addTodo2: a
+      .mutation()
+      .arguments({
+        id: a.id(),
+        content: a.string().required(),
+      })
+      .returns(a.ref("Todo2"))
+      .authorization(allow => [allow.publicApiKey()])
+      .handler(
+        a.handler.custom({
+          dataSource: "MyMongoDBDataSource",
+          entry: "./addTodo.js",
+        })
+      ),
+      getTodo2: a
+      .query()
+      .arguments({ id: a.id().required() })
+      .returns(a.ref("Todo2"))
+      .authorization(allow => [allow.publicApiKey()])
+      .handler(
+        a.handler.custom({
+          dataSource: "MyMongoDBDataSource",
+          entry: "./getTodo.js",
+        })
+      ),
+      listTodo2: a
+      .query()
+      .returns(a.ref("Todo2").array())
+      .authorization(allow => [allow.publicApiKey()])
+      .handler(
+        a.handler.custom({
+          dataSource: "MyMongoDBDataSource",
+          entry: "./listTodo.js",
+        })
+      ),
+      deleteTodo2: a
+      .mutation()
+      .arguments({
+        id: a.string().required(),
+      })
+      .returns(a.ref("Todo2"))
+      .authorization(allow => [allow.publicApiKey()])
+      .handler(
+        a.handler.custom({
+          dataSource: "MyMongoDBDataSource",
+          entry: "./deleteTodo.js",
+        })
+      ),
+
 });
 
+
+export type Todo2 = {
+  _id: string;
+  contents: string;
+};
 export type Schema = ClientSchema<typeof schema>;
 
 export const data = defineData({
@@ -55,3 +109,4 @@ Fetch records from the database and use them in your frontend component.
 // const { data: todos } = await client.models.Todo.list()
 
 // return <ul>{todos.map(todo => <li key={todo.id}>{todo.content}</li>)}</ul>
+
