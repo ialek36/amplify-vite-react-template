@@ -1,5 +1,3 @@
-import { util } from "@aws-appsync/utils";
-
 export function request(ctx) {
   console.log(`adding object with args ${JSON.stringify(ctx.arguments)}`);
 
@@ -11,7 +9,7 @@ export function request(ctx) {
         "Content-Type": "application/json",
         "Access-Control-Request-Headers": "*",
         "Accept": "application/json",
-        "api-key": "xxxx"
+        "api-key": ctx.env.mongodbsecret
       },
       body: {
         "collection": "Todos",
@@ -26,8 +24,6 @@ export function request(ctx) {
 }
 
 export function response(ctx) {
- const res = JSON.parse(ctx.result.body)
-
 	// https://www.mongodb.com/docs/atlas/api/data-api-resources/#response-2
   if (ctx.result.statusCode == 200) {
     return {};

@@ -13,9 +13,7 @@ export function request(ctx) {
         "Content-Type": "application/json",
         "Access-Control-Request-Headers": "*",
         "Accept": "application/json",
-        "api-key": "xxxx"
-        // "api-key": secret
-        // "api-key": `"${secret}"`
+        "api-key": ctx.env.mongodbsecret
       },
       body: {
         "collection": "Todos",
