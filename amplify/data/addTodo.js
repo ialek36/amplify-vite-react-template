@@ -3,11 +3,10 @@ import { util } from "@aws-appsync/utils";
 
 export function request(ctx) {
   console.log(`adding object with args ${JSON.stringify(ctx.arguments)}`);
-  // const secret = ctx.env.mongodbsecret;
 
   return {
     method: "POST",
-    resourcePath: "/app/data-yiqye/endpoint/data/v1/action/insertOne",
+    resourcePath: `${ctx.env.atlasdataapipath}/insertOne`,
     params: {
       headers: {
         "Content-Type": "application/json",

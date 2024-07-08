@@ -4,7 +4,7 @@ export function request(ctx) {
   console.log(`hello from request`);
   return {
     method: "POST",
-    resourcePath: "/app/data-yiqye/endpoint/data/v1/action/findOne",
+    resourcePath: `${ctx.env.atlasdataapipath}/findOne`,
     params: {
       headers: {
         "Content-Type": "application/json",

@@ -3,7 +3,7 @@ export function request(ctx) {
 
   return {
     method: "POST",
-    resourcePath: "/app/data-yiqye/endpoint/data/v1/action/deleteOne",
+    resourcePath: `${ctx.env.atlasdataapipath}/deleteOne`,
     params: {
       headers: {
         "Content-Type": "application/json",

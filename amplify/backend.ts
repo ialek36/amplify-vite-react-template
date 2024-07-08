@@ -14,5 +14,6 @@ backend.data.addHttpDataSource(
 );
 
 backend.data.resources.cfnResources.cfnGraphqlApi.environmentVariables = {
-  mongodbsecret : process.env.MONGODB_API_KEY,
+  mongodbsecret : process.env.MONGODB_DATA_API_KEY,
+  atlasdataapipath: process.env.ATLAS_DATA_API_PATH,
 };
