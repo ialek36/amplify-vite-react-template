@@ -46,12 +46,26 @@ const schema = a.schema({
       .arguments({
         id: a.string().required(),
       })
-      .returns(a.ref("Todo"))
+      .returns(a.string())
       .authorization(allow => [allow.publicApiKey()])
       .handler(
         a.handler.custom({
           dataSource: "MyMongoDBDataSource",
           entry: "./deleteTodo.js",
+        })
+      ),
+      updateTodo: a
+      .mutation()
+      .arguments({
+        _id: a.string().required(),
+        content: a.string().required(),
+      })
+      .returns(a.string())
+      .authorization(allow => [allow.publicApiKey()])
+      .handler(
+        a.handler.custom({
+          dataSource: "MyMongoDBDataSource",
+          entry: "./updateTodo.js",
         })
       ),
 

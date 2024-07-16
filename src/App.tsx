@@ -6,7 +6,8 @@ import { Authenticator } from '@aws-amplify/ui-react';
 const client = generateClient<Schema>();
 
 function App() {
-  const [todos, setTodos] = useState<Schema["getTodo"]['returnType'][]>([]);
+  type Todo = Schema["getTodo"]['returnType'];
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   const fetchTodos = async () => {
     const { data: todos, errors} = await client.queries.listTodo();
@@ -28,7 +29,20 @@ function App() {
     fetchTodos()
   }
 
-  async function deleteTodo(id: string) {
+  const updateTodo = async(todo: Todo) => {
+    if (!todo) return;
+
+    const itemContent = window.prompt("Todo content", todo?.content);
+    if (!itemContent) return;
+    
+    const updatedTodo:Todo = {...todo, content: itemContent };
+
+    await client.mutations.updateTodo({...updatedTodo});
+    fetchTodos()
+  }
+
+  async function deleteTodo(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: string) {
+    e.stopPropagation();
     await client.mutations.deleteTodo({ id });
     fetchTodos()
   }
@@ -45,10 +59,10 @@ function App() {
           {todos.map((todo) => {
             if (!todo) return null;
             return (
-              <li 
-                onClick={() => deleteTodo(todo._id)} 
-                key={todo._id}>{todo.content}
+              <li onClick={() => updateTodo(todo)} key={todo._id}> 
+                <button onClick={(event) => deleteTodo(event, todo._id)}>x</button> {todo.content}
               </li>
+              
             )
           })}
         </ul>

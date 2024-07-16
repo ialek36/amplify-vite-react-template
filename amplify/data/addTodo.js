@@ -20,7 +20,6 @@ export function request(ctx) {
         "dataSource": "Cluster1",
         "document": {
           "content": ctx.arguments.content,
-          "id": "id2"
         }
       },
     },

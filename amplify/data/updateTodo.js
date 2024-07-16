@@ -3,7 +3,7 @@ export function request(ctx) {
 
   return {
     method: "POST",
-    resourcePath: `${ctx.env.atlasdataapipath}/deleteOne`,
+    resourcePath: `${ctx.env.atlasdataapipath}/updateOne`,
     params: {
       headers: {
         "Content-Type": "application/json",
@@ -16,9 +16,14 @@ export function request(ctx) {
         "database": "Integration",
         "dataSource": "Cluster1",
         "filter": {
-        "_id": { "$oid": ctx.arguments.id }
-        }
-      },
+        "_id": { "$oid": ctx.arguments._id }
+        },
+        "update": {
+          "$set": {
+            "content": ctx.arguments.content,
+          }
+        },
+      }
     },
   };
 }
@@ -26,7 +31,7 @@ export function request(ctx) {
 export function response(ctx) {
 	// https://www.mongodb.com/docs/atlas/api/data-api-resources/#response-2
   if (ctx.result.statusCode == 200) {
-    return "200";
+    return ""
   } else {
     return  `${JSON.stringify(ctx)}`;
   }
