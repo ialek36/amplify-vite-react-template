@@ -23,7 +23,8 @@ function App() {
 
 
   const createTodo = async() => {
-    const itemContent = window.prompt("Todo content") ?? "default";
+    const itemContent = window.prompt("Todo content");
+    if (!itemContent) return;
 
     await client.mutations.addTodo({ content: itemContent});
     fetchTodos()

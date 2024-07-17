@@ -16,7 +16,8 @@ export function request(ctx) {
         "database": "Integration",
         "dataSource": "Cluster1",
         "filter": {
-        "_id": { "$oid": ctx.arguments.id }
+        "_id": { "$oid": ctx.arguments.id },
+        "username": ctx.identity.username,
         }
       },
     },

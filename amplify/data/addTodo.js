@@ -1,6 +1,5 @@
 import { util } from "@aws-appsync/utils";
 
-
 export function request(ctx) {
   console.log(`adding object with args ${JSON.stringify(ctx.arguments)}`);
 
@@ -20,6 +19,7 @@ export function request(ctx) {
         "dataSource": "Cluster1",
         "document": {
           "content": ctx.arguments.content,
+          "username": ctx.identity.username,
         }
       },
     },

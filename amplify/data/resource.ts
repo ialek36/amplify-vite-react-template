@@ -13,7 +13,7 @@ const schema = a.schema({
         content: a.string().required(),
       })
       .returns(a.ref("Todo"))
-      .authorization(allow => [allow.publicApiKey()])
+      .authorization(allow => [allow.authenticated()])
       .handler(
         a.handler.custom({
           dataSource: "MyMongoDBDataSource",
@@ -24,7 +24,7 @@ const schema = a.schema({
       .query()
       .arguments({ id: a.id().required() })
       .returns(a.ref("Todo"))
-      .authorization(allow => [allow.publicApiKey()])
+      .authorization(allow => [allow.authenticated()])
       .handler(
         a.handler.custom({
           dataSource: "MyMongoDBDataSource",
@@ -34,7 +34,7 @@ const schema = a.schema({
       listTodo: a
       .query()
       .returns(a.ref("Todo").array())
-      .authorization(allow => [allow.publicApiKey()])
+      .authorization(allow => [allow.authenticated()])
       .handler(
         a.handler.custom({
           dataSource: "MyMongoDBDataSource",
@@ -47,7 +47,7 @@ const schema = a.schema({
         id: a.string().required(),
       })
       .returns(a.string())
-      .authorization(allow => [allow.publicApiKey()])
+      .authorization(allow => [allow.authenticated()])
       .handler(
         a.handler.custom({
           dataSource: "MyMongoDBDataSource",
@@ -61,7 +61,7 @@ const schema = a.schema({
         content: a.string().required(),
       })
       .returns(a.string())
-      .authorization(allow => [allow.publicApiKey()])
+      .authorization(allow => [allow.authenticated()])
       .handler(
         a.handler.custom({
           dataSource: "MyMongoDBDataSource",
@@ -76,7 +76,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: "apiKey",
+    defaultAuthorizationMode: "userPool",
     apiKeyAuthorizationMode: {
       expiresInDays: 30,
     },

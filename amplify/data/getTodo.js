@@ -16,6 +16,9 @@ export function request(ctx) {
         "collection": "Todos",
         "database":"Integration",
         "dataSource":"Cluster1",
+        "filter": {
+          "username": ctx.identity.username,
+        },
         "projection": {"_id": 1, "content":1}
       },
     },
